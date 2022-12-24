@@ -8,9 +8,9 @@ Dicoding - BE Expert Submission
 
 - Login as root user: ```psql --username postgres```
 
-- Create db: ```CREATE DATABASE authapi; CREATE DATABASE authapi_test;```
+- Create db: ```CREATE DATABASE forumapi; CREATE DATABASE forumapi_test;```
 
-- Grant access to user 'alvin': ```GRANT ALL PRIVILEGES ON DATABASE authapi, authapi_test TO alvin;```
+- Grant access to user 'alvin': ```GRANT ALL PRIVILEGES ON DATABASE forumapi, forumapi_test TO alvin;```
 
 ### Run migration
 
