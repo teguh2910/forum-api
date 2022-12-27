@@ -27,3 +27,21 @@ Dicoding - BE Expert Submission
 - Prod: ```npm run start```
 
 - Dev: ```npm run start:dev```
+
+### Clear DB
+
+```sh
+# login
+psql -U <username> -d <dbname>
+# psql -U alvin -d forumapi
+# psql -U alvin -d forumapi_test
+
+# show tables
+\dt
+
+# clear data from tables (truncate)
+truncate authentications, threads, users;
+
+# quit
+\q
+```
