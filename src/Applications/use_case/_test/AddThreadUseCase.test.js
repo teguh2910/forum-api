@@ -1,5 +1,4 @@
 const AddThreadUseCase = require('../AddThreadUseCase');
-const AuthenticationTokenManager = require('../../security/AuthenticationTokenManager');
 const ThreadRepository = require('../../../Domains/threads/ThreadRepository');
 const CreateThread = require('../../../Domains/threads/entities/CreateThread');
 const CreatedThread = require('../../../Domains/threads/entities/CreatedThread');
@@ -23,17 +22,13 @@ describe('AddThreadUseCase', () => {
 
     /** creating dependency of use case */
     const mockThreadRepository = new ThreadRepository();
-    const mockAuthenticationTokenManager = new AuthenticationTokenManager();
 
     /** mocking needed function */
     mockThreadRepository.createThread = jest.fn()
       .mockImplementation(() => Promise.resolve(expectedAddedThread));
 
     /** creating use case instance */
-    const addThreadUseCase = new AddThreadUseCase({
-      threadRepository: mockThreadRepository,
-      authenticationTokenManager: mockAuthenticationTokenManager,
-    });
+    const addThreadUseCase = new AddThreadUseCase({ threadRepository: mockThreadRepository });
 
     // Action
     const addedThread = await addThreadUseCase.execute(useCasePayload);
