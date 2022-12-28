@@ -9,7 +9,6 @@ exports.up = (pgm) => {
     title: {
       type: 'VARCHAR(50)',
       notNull: true,
-      unique: true,
     },
     body: {
       type: 'TEXT',
@@ -19,6 +18,10 @@ exports.up = (pgm) => {
       type: 'VARCHAR(50)',
       notNull: true,
     },
+    date: {
+      type: 'TEXT',
+      notNull: true,
+    }
   });
 
   // set foreign key constraints on owner column to id from users table

@@ -12,6 +12,13 @@ Dicoding - BE Expert Submission
 
 - Grant access to user 'alvin': ```GRANT ALL PRIVILEGES ON DATABASE forumapi, forumapi_test TO alvin;```
 
+### Create migration files
+
+```sh
+npm run migrate create "<description>"
+# npm run migrate create "create table threads"
+```
+
 ### Run migration
 
 - App db: ```npm run migrate up```
