@@ -47,7 +47,7 @@ psql -U <username> -d <dbname>
 \dt
 
 # clear data from tables (truncate)
-truncate authentications, threads, users;
+truncate authentications, threads, comments, users;
 
 # quit
 \q
