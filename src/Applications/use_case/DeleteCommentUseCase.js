@@ -1,5 +1,3 @@
-const CreateComment = require('../../Domains/comments/entities/CreateComment');
-
 class DeleteCommentUseCase {
   constructor({ commentRepository, threadRepository }) {
     this._commentRepository = commentRepository;
