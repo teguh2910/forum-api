@@ -40,7 +40,7 @@ describe('CommentRepositoryPostgres', () => {
     });
   });
 
-  describe('verifyCommentOwner function', () => {
+  describe('verifyCommentExist function', () => {
     it('should throw NotFoundError when comment not found', () => {
       // Arrange
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
