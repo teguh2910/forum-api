@@ -22,6 +22,24 @@ class ReplyRepositoryPostgres extends ReplyRepository {
 
     return new CreatedReply({ ...result.rows[0] });
   }
+
+  async getRepliesByThreadId(threadId) {
+    const query = {
+      text: `
+        SELECT replies.id, replies.content, replies.date, users.username, replies.is_delete, replies.comment_id
+        FROM replies
+        INNER JOIN users ON replies.owner = users.id
+        INNER JOIN comments ON replies.comment_id = comments.id
+        WHERE comments.thread_id = $1
+        ORDER BY replies.date ASC
+      `,
+      values: [threadId],
+    };
+
+    const result = await this._pool.query(query);
+
+    return result.rows;
+  }
 }
 
 module.exports = ReplyRepositoryPostgres;
