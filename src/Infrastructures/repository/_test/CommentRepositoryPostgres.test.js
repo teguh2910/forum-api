@@ -111,4 +111,50 @@ describe('CommentRepositoryPostgres', () => {
       expect(comments[0].is_delete).toEqual(true);
     });
   });
+
+  describe('getCommentByThreadId function', () => {
+    it('should get comments by thread ID correctly', async () => {
+      // Arrange
+      const threadId = 'thread-123';
+      await UsersTableTestHelper.addUser({ id: 'user-123' }); // add user with id user-123
+      await ThreadsTableTestHelper.addThread({ id: threadId }); // add thread with id thread-123
+      await CommentsTableTestHelper.addComment({
+        id: 'comment-123', // add comment with id comment-123
+        threadId,
+        date: '2022-12-29T07:44:10.275Z' // should be the second comment
+      });
+      await CommentsTableTestHelper.addComment({
+        id: 'comment-456', // add comment with id comment-456
+        threadId,
+        date: '2022-12-29T07:44:03.301Z' // should be the first comment
+      });
+      const fakeIdGenerator = () => '123'; // stub!
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
+
+      // Action
+      const comments = await commentRepositoryPostgres.getCommentsByThreadId(threadId);
+
+      // Assert
+      expect(comments).toBeDefined();
+      expect(comments).toHaveLength(2);
+      expect(comments[0].id).toEqual('comment-456');
+      expect(comments[1].id).toEqual('comment-123');
+    });
+
+    it('should show empty array if no comment found by thread ID', async () => {
+      // Arrange
+      const threadId = 'thread-123';
+      await UsersTableTestHelper.addUser({ id: 'user-123' }); // add user with id user-123
+      await ThreadsTableTestHelper.addThread({ id: threadId }); // add thread with id thread-123
+      const fakeIdGenerator = () => '123'; // stub!
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
+
+      // Action
+      const comments = await commentRepositoryPostgres.getCommentsByThreadId(threadId);
+
+      // Assert
+      expect(comments).toBeDefined();
+      expect(comments).toHaveLength(0);
+    });
+  });
 });
