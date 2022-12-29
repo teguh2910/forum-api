@@ -2,6 +2,8 @@
 
 Dicoding - BE Expert Submission
 
+Workflow: Domain -> Use Case -> Repository Infra -> Interface -> Server (HTTP Infra)
+
 ## Setup
 
 ### Setup postgresql db
