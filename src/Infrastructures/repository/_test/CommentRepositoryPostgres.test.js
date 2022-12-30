@@ -6,6 +6,7 @@ const CommentRepositoryPostgres = require('../CommentRepositoryPostgres');
 const CreateComment = require('../../../Domains/comments/entities/CreateComment');
 const AuthorizationError = require('../../../Commons/exceptions/AuthorizationError');
 const NotFoundError = require('../../../Commons/exceptions/NotFoundError');
+const CreatedComment = require('../../../Domains/comments/entities/CreatedComment');
 
 describe('CommentRepositoryPostgres', () => {
   afterEach(async () => {
@@ -37,10 +38,15 @@ describe('CommentRepositoryPostgres', () => {
       // Assert
       const comments = await CommentsTableTestHelper.findCommentsById(createdComment.id);
       expect(comments).toHaveLength(1);
+      expect(createdComment).toStrictEqual(new CreatedComment({
+        id: 'comment-123',
+        content: createComment.content,
+        owner: createComment.owner,
+      }));
     });
   });
 
-  describe('verifyCommentExist function', () => {
+  describe('verifyCommentIsExist function', () => {
     it('should throw NotFoundError when comment not found', () => {
       // Arrange
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
@@ -49,6 +55,19 @@ describe('CommentRepositoryPostgres', () => {
       return expect(commentRepositoryPostgres.verifyCommentIsExist('hello-world'))
         .rejects
         .toThrowError(NotFoundError);
+    });
+
+    it('should not throw NotFoundError when comment found', async () => {
+      // Arrange
+      const commentId = 'comment-123';
+      await UsersTableTestHelper.addUser({ id: 'user-123' }); // add user with id user-123
+      await ThreadsTableTestHelper.addThread({ id: 'thread-123' }); // add thread with id thread-123
+      await CommentsTableTestHelper.addComment({ id: commentId }); // add comment with id comment-123
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
+
+      // Action & Assert
+      return expect(commentRepositoryPostgres.verifyCommentIsExist(commentId))
+        .resolves.not.toThrowError(NotFoundError);
     });
   });
 
@@ -138,7 +157,15 @@ describe('CommentRepositoryPostgres', () => {
       expect(comments).toBeDefined();
       expect(comments).toHaveLength(2);
       expect(comments[0].id).toEqual('comment-456');
+      expect(comments[0].date).toEqual('2022-12-29T07:44:03.301Z');
+      expect(comments[0].username).toEqual('dicoding'); // default username from UsersTableTestHelper.addUser
+      expect(comments[0].content).toEqual('Lorem ipsum...'); // default content from CommentsTableTestHelper.addComment
+      expect(comments[0].is_delete).toEqual(false); // default is_delete from CommentsTableTestHelper.addComment
       expect(comments[1].id).toEqual('comment-123');
+      expect(comments[1].date).toEqual('2022-12-29T07:44:10.275Z');
+      expect(comments[1].username).toEqual('dicoding'); // default username from UsersTableTestHelper.addUser
+      expect(comments[1].content).toEqual('Lorem ipsum...'); // default content from CommentsTableTestHelper.addComment
+      expect(comments[1].is_delete).toEqual(false); // default is_delete from CommentsTableTestHelper.addComment
     });
 
     it('should show empty array if no comment found by thread ID', async () => {

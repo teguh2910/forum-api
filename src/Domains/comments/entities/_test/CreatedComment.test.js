@@ -36,6 +36,7 @@ describe('a CreatedComment entities', () => {
     const createdComment = new CreatedComment(payload);
 
     // Assert
+    expect(createdComment).toBeInstanceOf(CreatedComment);
     expect(createdComment.id).toEqual(payload.id);
     expect(createdComment.content).toEqual(payload.content);
     expect(createdComment.owner).toEqual(payload.owner);

@@ -25,7 +25,11 @@ describe('AddThreadUseCase', () => {
 
     /** mocking needed function */
     mockThreadRepository.createThread = jest.fn()
-      .mockImplementation(() => Promise.resolve(expectedAddedThread));
+      .mockImplementation(() => Promise.resolve(new CreatedThread({
+        id: 'thread-123',
+        title: useCasePayload.title,
+        owner: useCasePayload.owner,
+      })));
 
     /** creating use case instance */
     const addThreadUseCase = new AddThreadUseCase({ threadRepository: mockThreadRepository });

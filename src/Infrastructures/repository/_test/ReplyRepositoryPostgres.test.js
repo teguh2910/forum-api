@@ -7,6 +7,7 @@ const ReplyRepositoryPostgres = require('../ReplyRepositoryPostgres');
 const RepliesTableTestHelper = require('../../../../tests/RepliesTableTestHelper');
 const AuthorizationError = require('../../../Commons/exceptions/AuthorizationError');
 const NotFoundError = require('../../../Commons/exceptions/NotFoundError');
+const CreatedReply = require('../../../Domains/replies/entities/CreatedReply');
 
 describe('ReplyRepositoryPostgres', () => {
   afterEach(async () => {
@@ -40,6 +41,11 @@ describe('ReplyRepositoryPostgres', () => {
       // Assert
       const replies = await RepliesTableTestHelper.findRepliesById(createdReply.id);
       expect(replies).toHaveLength(1);
+      expect(createdReply).toStrictEqual(new CreatedReply({
+        id: 'reply-123',
+        content: createReply.content,
+        owner: createReply.owner,
+      }));
     });
   });
 

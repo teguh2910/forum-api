@@ -38,5 +38,6 @@ describe('CreateComment entities', () => {
     expect(createComment).toBeInstanceOf(CreateComment);
     expect(createComment.content).toEqual(payload.content);
     expect(createComment.owner).toEqual(payload.owner);
+    expect(createComment.threadId).toEqual(payload.threadId);
   });
 });
