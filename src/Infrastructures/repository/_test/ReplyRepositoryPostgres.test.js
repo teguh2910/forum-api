@@ -49,6 +49,49 @@ describe('ReplyRepositoryPostgres', () => {
     });
   });
 
+  describe('getRepliesByThreadId function', () => {
+    it('should return replies by thread id correctly', async () => {
+      // Arrange
+      const threadId = 'thread-123';
+      const replyData = {
+        id: 'reply-123',
+        content: 'Reply content',
+        owner: 'user-123',
+        commentId: 'comment-123',
+        date: 'fake date',
+      };
+      const userData = {
+        id: 'user-123',
+        username: 'the-username',
+      };
+      await UsersTableTestHelper.addUser(userData); // add user with id user-123
+      await ThreadsTableTestHelper.addThread({ id: threadId }); // add thread with id thread-123
+      await CommentsTableTestHelper.addComment({ id: 'comment-123' }); // add comment with id comment-123
+      await RepliesTableTestHelper.addReply(replyData); // add reply with id reply-123
+      const fakeIdGenerator = () => '123'; // stub!
+      const replyRepositoryPostgres = new ReplyRepositoryPostgres(pool, fakeIdGenerator);
+
+      // Action
+      const repliesByThreadId = await replyRepositoryPostgres.getRepliesByThreadId(threadId);
+
+      // Assert
+      expect(repliesByThreadId).toBeDefined();
+      expect(repliesByThreadId).toHaveLength(1);
+      expect(repliesByThreadId[0]).toHaveProperty('id');
+      expect(repliesByThreadId[0].id).toEqual(replyData.id);
+      expect(repliesByThreadId[0]).toHaveProperty('content');
+      expect(repliesByThreadId[0].content).toEqual(replyData.content);
+      expect(repliesByThreadId[0]).toHaveProperty('date');
+      expect(repliesByThreadId[0].date).toEqual(replyData.date);
+      expect(repliesByThreadId[0]).toHaveProperty('username');
+      expect(repliesByThreadId[0].username).toEqual(userData.username);
+      expect(repliesByThreadId[0]).toHaveProperty('comment_id');
+      expect(repliesByThreadId[0].comment_id).toEqual(replyData.commentId);
+      expect(repliesByThreadId[0]).toHaveProperty('is_delete');
+      expect(repliesByThreadId[0].is_delete).toEqual(false); // default value in helper
+    });
+  });
+
   describe('verifyReplyIsExist function', () => {
     it('should throw NotFoundError when reply not found', () => {
       // Arrange

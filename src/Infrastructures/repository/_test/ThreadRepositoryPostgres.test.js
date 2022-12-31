@@ -80,17 +80,32 @@ describe('ThreadRepositoryPostgres', () => {
 
     it('should get thread by thread ID correctly', async () => {
       // Arrange
-      const threadId = 'thread-123';
-      await UsersTableTestHelper.addUser({ id: 'user-123' }); // add user with id user-123
-      await ThreadsTableTestHelper.addThread({ id: threadId }); // add thread with id thread-123
+      const threadData = {
+        id: 'thread-123',
+        title: 'Thread Title',
+        body: 'Thread body',
+        owner: 'user-123',
+        date: 'fake date',
+      };
+      const userData = {
+        id: 'user-123',
+        username: 'the-username',
+      };
+      await UsersTableTestHelper.addUser(userData);
+      await ThreadsTableTestHelper.addThread(threadData);
       const fakeIdGenerator = () => '123'; // stub!
       const threadRepositoryPostgres = new ThreadRepositoryPostgres(pool, fakeIdGenerator);
 
       // Action
-      const thread = await threadRepositoryPostgres.getThreadById(threadId);
+      const thread = await threadRepositoryPostgres.getThreadById(threadData.id);
 
       // Assert
       expect(thread).toBeDefined();
+      expect(thread.id).toEqual(threadData.id);
+      expect(thread.title).toEqual(threadData.title);
+      expect(thread.body).toEqual(threadData.body);
+      expect(thread.date).toEqual(threadData.date);
+      expect(thread.username).toEqual(userData.username);
     });
   });
 });
