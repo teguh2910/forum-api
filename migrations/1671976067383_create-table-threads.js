@@ -21,7 +21,7 @@ exports.up = (pgm) => {
     date: {
       type: 'TEXT',
       notNull: true,
-    }
+    },
   });
 
   // set foreign key constraints on owner column to id from users table
@@ -30,8 +30,8 @@ exports.up = (pgm) => {
 };
 
 exports.down = (pgm) => {
-  pgm.dropTable('threads');
-
   // drop constraint fk_threads.owner_users.id from threads table
   pgm.dropConstraint('threads', 'fk_threads.owner_users.id');
+
+  pgm.dropTable('threads');
 };

@@ -38,11 +38,11 @@ exports.up = (pgm) => {
 };
 
 exports.down = (pgm) => {
-  pgm.dropTable('replies');
-
   // drop constraint fk_replies.owner_users.id from replies table
   pgm.dropConstraint('replies', 'fk_replies.owner_users.id');
-  
+
   // drop constraint fk_replies.comment_id_comments.id from replies table
   pgm.dropConstraint('replies', 'fk_replies.comment_id_comments.id');
+
+  pgm.dropTable('replies');
 };
