@@ -23,6 +23,8 @@ npm run migrate create "<description>"
 
 ### Run migration
 
+- Copy ```config/database/test_example.json``` to ```config/database/test.json```
+
 - App db: ```npm run migrate up```
 
 - Test db: ```npm run migrate:test up```
