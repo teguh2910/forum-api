@@ -62,7 +62,7 @@ describe('CommentRepositoryPostgres', () => {
       const commentId = 'comment-123';
       await UsersTableTestHelper.addUser({ id: 'user-123' }); // add user with id user-123
       await ThreadsTableTestHelper.addThread({ id: 'thread-123' }); // add thread with id thread-123
-      await CommentsTableTestHelper.addComment({ id: commentId }); // add comment with id comment-123
+      await CommentsTableTestHelper.addComment({ id: commentId });
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
 
       // Action & Assert
@@ -79,7 +79,7 @@ describe('CommentRepositoryPostgres', () => {
       const wrongUserId = 'user-456';
       await UsersTableTestHelper.addUser({ id: userId }); // add user with id user-123
       await ThreadsTableTestHelper.addThread({ id: 'thread-123' }); // add thread with id thread-123
-      await CommentsTableTestHelper.addComment({ id: commentId }); // add comment with id comment-123
+      await CommentsTableTestHelper.addComment({ id: commentId });
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
 
       // Action & Assert
@@ -93,7 +93,7 @@ describe('CommentRepositoryPostgres', () => {
       const userId = 'user-123';
       await UsersTableTestHelper.addUser({ id: userId }); // add user with id user-123
       await ThreadsTableTestHelper.addThread({ id: 'thread-123' }); // add thread with id thread-123
-      await CommentsTableTestHelper.addComment({ id: commentId }); // add comment with id comment-123
+      await CommentsTableTestHelper.addComment({ id: commentId });
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
 
       // Action & Assert
@@ -118,7 +118,7 @@ describe('CommentRepositoryPostgres', () => {
       const commentId = 'comment-123';
       await UsersTableTestHelper.addUser({ id: 'user-123' }); // add user with id user-123
       await ThreadsTableTestHelper.addThread({ id: 'thread-123' }); // add thread with id thread-123
-      await CommentsTableTestHelper.addComment({ id: commentId }); // add comment with id comment-123
+      await CommentsTableTestHelper.addComment({ id: commentId });
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
 
       // Action
@@ -140,12 +140,12 @@ describe('CommentRepositoryPostgres', () => {
       await CommentsTableTestHelper.addComment({
         id: 'comment-123', // add comment with id comment-123
         threadId,
-        date: '2022-12-29T07:44:10.275Z' // should be the second comment
+        date: '2022-12-29T07:44:10.275Z', // should be the second comment
       });
       await CommentsTableTestHelper.addComment({
         id: 'comment-456', // add comment with id comment-456
         threadId,
-        date: '2022-12-29T07:44:03.301Z' // should be the first comment
+        date: '2022-12-29T07:44:03.301Z', // should be the first comment
       });
       const fakeIdGenerator = () => '123'; // stub!
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
@@ -160,12 +160,12 @@ describe('CommentRepositoryPostgres', () => {
       expect(comments[0].date).toEqual('2022-12-29T07:44:03.301Z');
       expect(comments[0].username).toEqual('dicoding'); // default username from UsersTableTestHelper.addUser
       expect(comments[0].content).toEqual('Lorem ipsum...'); // default content from CommentsTableTestHelper.addComment
-      expect(comments[0].is_delete).toEqual(false); // default is_delete from CommentsTableTestHelper.addComment
+      expect(comments[0].is_delete).toEqual(false); // default
       expect(comments[1].id).toEqual('comment-123');
       expect(comments[1].date).toEqual('2022-12-29T07:44:10.275Z');
       expect(comments[1].username).toEqual('dicoding'); // default username from UsersTableTestHelper.addUser
       expect(comments[1].content).toEqual('Lorem ipsum...'); // default content from CommentsTableTestHelper.addComment
-      expect(comments[1].is_delete).toEqual(false); // default is_delete from CommentsTableTestHelper.addComment
+      expect(comments[1].is_delete).toEqual(false); // default
     });
 
     it('should show empty array if no comment found by thread ID', async () => {

@@ -129,8 +129,12 @@ describe('ReplyRepositoryPostgres', () => {
       const wrongUserId = 'user-456';
       await UsersTableTestHelper.addUser({ id: userId }); // add user with id user-123
       await ThreadsTableTestHelper.addThread({ id: 'thread-123' }); // add thread with id thread-123
-      await CommentsTableTestHelper.addComment({ id: commentId }); // add comment with id comment-123
-      await RepliesTableTestHelper.addReply({ id: replyId, owner: userId, commentId }); // add reply with id reply-123
+      await CommentsTableTestHelper.addComment({ // add comment with id comment-123
+        id: commentId,
+      });
+      await RepliesTableTestHelper.addReply({ // add reply with id reply-123
+        id: replyId, owner: userId, commentId,
+      });
       const replyRepositoryPostgres = new ReplyRepositoryPostgres(pool, {});
 
       // Action & Assert
@@ -145,8 +149,12 @@ describe('ReplyRepositoryPostgres', () => {
       const userId = 'user-123';
       await UsersTableTestHelper.addUser({ id: userId }); // add user with id user-123
       await ThreadsTableTestHelper.addThread({ id: 'thread-123' }); // add thread with id thread-123
-      await CommentsTableTestHelper.addComment({ id: commentId }); // add comment with id comment-123
-      await RepliesTableTestHelper.addReply({ id: replyId, owner: userId, commentId }); // add reply with id reply-123
+      await CommentsTableTestHelper.addComment({ // add comment with id comment-123
+        id: commentId,
+      });
+      await RepliesTableTestHelper.addReply({ // add reply with id reply-123
+        id: replyId, owner: userId, commentId,
+      });
       const replyRepositoryPostgres = new ReplyRepositoryPostgres(pool, {});
 
       // Action & Assert
@@ -172,7 +180,9 @@ describe('ReplyRepositoryPostgres', () => {
       const replyId = 'reply-123';
       await UsersTableTestHelper.addUser({ id: 'user-123' }); // add user with id user-123
       await ThreadsTableTestHelper.addThread({ id: 'thread-123' }); // add thread with id thread-123
-      await CommentsTableTestHelper.addComment({ id: commentId }); // add comment with id comment-123
+      await CommentsTableTestHelper.addComment({ // add comment with id comment-123
+        id: commentId,
+      });
       await RepliesTableTestHelper.addReply({ id: replyId, owner: 'user-123', commentId }); // add reply with id reply-123
       const replyRepositoryPostgres = new ReplyRepositoryPostgres(pool, {});
 

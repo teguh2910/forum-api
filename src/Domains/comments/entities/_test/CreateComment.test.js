@@ -15,7 +15,7 @@ describe('CreateComment entities', () => {
     // Arrange
     const payload = {
       content: 12345,
-      owner:  { id: 'user-123'},
+      owner: { id: 'user-123' },
       threadId: 'thread-123',
     };
 

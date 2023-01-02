@@ -46,7 +46,7 @@ class ThreadRepositoryPostgres extends ThreadRepository {
         WHERE threads.id = $1
       `,
       values: [threadId],
-    }
+    };
 
     const result = await this._pool.query(query);
 

@@ -61,7 +61,7 @@ class ReplyRepositoryPostgres extends ReplyRepository {
       text: 'SELECT * FROM replies WHERE id = $1 AND owner = $2',
       values: [replyId, owner],
     };
-    
+
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {

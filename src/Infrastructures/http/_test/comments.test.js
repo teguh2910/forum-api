@@ -26,7 +26,7 @@ describe('/threads/{threadId}/comments/... endpoint', () => {
 
       const threadId = 'thread-123';
       await ThreadsTableTestHelper.addThread({ id: threadId });
-      
+
       // Action
       const response = await server.inject({
         method: 'POST',
@@ -36,7 +36,7 @@ describe('/threads/{threadId}/comments/... endpoint', () => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-    
+
       // Assert
       const responseJson = JSON.parse(response.payload);
       expect(response.statusCode).toEqual(201);
@@ -108,7 +108,7 @@ describe('/threads/{threadId}/comments/... endpoint', () => {
 
       const commentId = 'comment-123';
       await CommentsTableTestHelper.addComment({ id: commentId, threadId });
-      
+
       // Action
       const response = await server.inject({
         method: 'DELETE',
@@ -117,7 +117,7 @@ describe('/threads/{threadId}/comments/... endpoint', () => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-    
+
       // Assert
       const responseJson = JSON.parse(response.payload);
       expect(response.statusCode).toEqual(200);

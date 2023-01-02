@@ -24,7 +24,7 @@ describe('/threads endpoint', () => {
       };
       const accessToken = await ServerTestHelper.getAccessToken();
       const server = await createServer(container);
-      
+
       // Action
       const response = await server.inject({
         method: 'POST',
@@ -34,7 +34,7 @@ describe('/threads endpoint', () => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-    
+
       // Assert
       const responseJson = JSON.parse(response.payload);
       expect(response.statusCode).toEqual(201);
@@ -101,13 +101,13 @@ describe('/threads endpoint', () => {
       await UsersTableTestHelper.addUser({ id: 'user-123' });
       await ThreadsTableTestHelper.addThread({ id: threadId, owner: 'user-123' });
       const server = await createServer(container);
-      
+
       // Action
       const response = await server.inject({
         method: 'GET',
         url: `/threads/${threadId}`,
       });
-    
+
       // Assert
       const responseJson = JSON.parse(response.payload);
       expect(response.statusCode).toEqual(200);

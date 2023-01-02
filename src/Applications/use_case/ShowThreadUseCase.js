@@ -19,6 +19,7 @@ class ShowThreadUseCase {
   }
 
   _validateDeletedComment(comments) {
+    // eslint-disable-next-line no-restricted-syntax
     for (const comment of comments) {
       if (comment.is_delete) {
         comment.content = '**komentar telah dihapus**';
@@ -29,6 +30,7 @@ class ShowThreadUseCase {
   }
 
   _validateDeletedReply(replies) {
+    // eslint-disable-next-line no-restricted-syntax
     for (const reply of replies) {
       if (reply.is_delete) {
         reply.content = '**balasan telah dihapus**';
@@ -39,8 +41,10 @@ class ShowThreadUseCase {
   }
 
   _addReplyToComment(comments, replies) {
+    // eslint-disable-next-line no-restricted-syntax
     for (const comment of comments) {
       comment.replies = [];
+      // eslint-disable-next-line no-restricted-syntax
       for (const reply of replies) {
         if (reply.comment_id === comment.id) {
           comment.replies.push(reply);

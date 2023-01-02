@@ -16,7 +16,7 @@ describe('CreateThread entities', () => {
     const payload = {
       title: true,
       body: 12345,
-      owner:  { id: 'user-123'}
+      owner: { id: 'user-123' },
     };
 
     // Action & Assert
@@ -28,7 +28,7 @@ describe('CreateThread entities', () => {
     const payload = {
       title: 'Thread Title',
       body: 'Thread body',
-      owner: 'user-123'
+      owner: 'user-123',
     };
 
     // Action

@@ -85,7 +85,7 @@ describe('ShowThreadUseCase', () => {
           replies: [],
           content: '**komentar telah dihapus**',
         },
-      ]
+      ],
     };
 
     /** creating dependency of use case */
