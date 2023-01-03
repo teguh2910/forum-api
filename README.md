@@ -2,7 +2,7 @@
 
 Dicoding - BE Expert Submission
 
-Workflow: Domain -> Use Case -> Repository Infra -> Interface -> Server (HTTP Infra)
+Workflow: Domain -> Use Case -> Repository Infra -> Container -> Interface -> Server (HTTP Infra)
 
 ## Setup
 
